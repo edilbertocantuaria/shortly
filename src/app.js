@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import chalk from 'chalk';
-import router from './routers/index.routers.js';
+import router from './routes/index.routes.js';
 
 const app = express();
 
