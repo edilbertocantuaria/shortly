@@ -40,3 +40,20 @@ export async function signUp(req, res) {
         res.status(500).send(err.message);
     }
 }
+
+export async function signIn(req, res) {
+    const { email, password } = req.body
+    try {
+        const user = await db.query(`SELECT * FROM users WHERE users.email=$1;`, [email]);
+        //console.log(user.rows[0].id);
+
+        const userId = Number(user.rows[0].id);
+        const token = uuid();
+
+        await db.query(`INSERT INTO sessions (token, "userID") VALUES ($1, $2);`, [token, userId]);
+        res.status(201).send({ token })
+    }
+    catch (err) {
+        res.status(500).send(err.message);
+    }
+}
