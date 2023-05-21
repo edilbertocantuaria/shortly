@@ -2,9 +2,12 @@ import { db } from "../database/database.connection.js"
 import bcrypt from "bcrypt"
 import { v4 as uuid } from "uuid"
 
-export async function getUsers (req, res){
+export async function getUsers(req, res) {
     try {
-        const users = await db.query("SELECT * FROM users");
+
+        const users = await db.query("SELECT * FROM users;");
+        //console.log(users.rows);
+
         if (users.rows.length === 0) return res.status(404).send("Nenhum usuário cadastrado");
 
         const formattedUsers = users.rows.map((user) => ({
@@ -17,19 +20,20 @@ export async function getUsers (req, res){
 
         res.send(formattedUsers);
     }
-    catch (err){
-       res.status(500).send (err.message);
+    catch (err) {
+        res.status(500).send(err.message);
     }
 }
 
 export async function signUp(req, res) {
     const { name, email, password, passwordConfirm } = req.body
     try {
-        if (password != passwordConfirm) return res.status(400).send({ message: "As senhas não conferem!" })
 
-        const passwordHash = bcrypt.hashSync(user.password, 10);
+        if (password != passwordConfirm) return res.status(400).send("As senhas não conferem!")
 
-        await db.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`, [name, email, passwordHash]);
+        const passwordHash = bcrypt.hashSync(password, 10);
+
+        await db.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3);`, [name, email, passwordHash]);
         res.sendStatus(201);
     }
     catch (err) {
