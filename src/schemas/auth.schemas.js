@@ -1,8 +1,8 @@
 import joi from "joi"
 
-export const userSchema = joi.object ({
+export const userSchema = joi.object({
     name: joi.string().trim().required(),
     email: joi.string().email().required(),
     password: joi.string().trim().required(),
-
+    passwordConfirm: joi.string().valid(joi.ref('password')).required().trim()
 });
