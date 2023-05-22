@@ -26,10 +26,10 @@ export async function getUsers(req, res) {
 }
 
 export async function signUp(req, res) {
-    const { name, email, password, passwordConfirm } = req.body
+    const { name, email, password, confirmPassword } = req.body
     try {
 
-        if (password != passwordConfirm) return res.status(400).send("As senhas não conferem!")
+        if (password != confirmPassword) return res.status(400).send("As senhas não conferem!")
 
         const passwordHash = bcrypt.hashSync(password, 10);
 
