@@ -42,11 +42,13 @@ export async function getOriginalUrl(req, res) {
     try {
 
         const originalUrl = await db.query(`SELECT url FROM urls WHERE "shortUrl"=$1;`, [shortUrl]);
-        console.log(originalUrl.rows[0].url);
+        //console.log(originalUrl.rows[0].url);
 
         if (originalUrl.rows.length === 0) return res.status(404).send("Nenhum url cadastrado");
 
-        res.redirect(originalUrl.rows[0].url);
+        await db.query(`UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE "shortUrl"=$1;`, [shortUrl]);
+
+        res.redirect(301, originalUrl.rows[0].url);
     }
     catch (err) {
         res.status(500).send(err.message);
