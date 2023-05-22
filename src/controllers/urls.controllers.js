@@ -48,7 +48,7 @@ export async function getOriginalUrl(req, res) {
 
         await db.query(`UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE "shortUrl"=$1;`, [shortUrl]);
 
-        res.redirect(301, originalUrl.rows[0].url);
+        res.redirect(302, originalUrl.rows[0].url);
     }
     catch (err) {
         res.status(500).send(err.message);
@@ -69,7 +69,7 @@ export async function deleteUrl(req, res) {
 
         await db.query(`DELETE  FROM urls WHERE id = $1;`, [id]);
 
-        res.status(201).send("Link excluído com sucesso!")
+        res.status(204).send("Link excluído com sucesso!")
     }
     catch (err) {
         res.status(500).send(err.message)
