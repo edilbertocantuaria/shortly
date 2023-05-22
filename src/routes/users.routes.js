@@ -7,6 +7,6 @@ import { authValidation } from "../middlewares/authValidation.middleware.js"
 const usersRouter = Router();
 
 usersRouter.get("/users/me", authValidation, getMe);
-usersRouter.get("/ranking", authValidation, getRank);
+usersRouter.get("/ranking", getRank);
 
 export default usersRouter;

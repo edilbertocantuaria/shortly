@@ -44,7 +44,7 @@ export async function getRank(req, res) {
         LIMIT 10
     `);
     
-    console.log(rank.rows);
+    //console.log(rank.rows);
 
         const rankData = rank.rows.map((infoUser) => ({
             id: infoUser.id,
