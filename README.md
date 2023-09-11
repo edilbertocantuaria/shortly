@@ -44,7 +44,7 @@ Configure your `.env` file according to the `.env.exemple`, adapting the values 
 
 
 ## Usage
-- With all dependencies installed, open your terminal and start the frontend server running the command: `npm run start` or `npm run dev`
+- With all dependencies installed, open your terminal and start the backend server running the command: `npm run start` or `npm run dev`
 
 - Open your Thunder Client to do the `POST`, `GET`,`PUT` and `DELETE` requests.
 
